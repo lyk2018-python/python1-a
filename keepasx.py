@@ -8,6 +8,41 @@ class Keepasx():
 
     def __init__(self, file_name):
         self.file_name = file_name
+        while True:
+            menu = self.input_control_error("""
+            Lütfen İşlem seçiniz:
+            1 - Yeni parola oluştur
+            2 - Parolaları listele
+            3 - Parola ara
+            """,is_numeric=True)
+            if menu == 1:
+                self.register_new_pass()
+            elif menu == 2:
+                self.list()
+            elif menu == 3:
+                key = self.input_control_error("Arama Kriteri :")
+                self.search(key)
+            else:
+                print('Hatalı Girdi')
+
+
+
+    def input_control_error(self,text,is_numeric=False):
+        input_error = True
+        while input_error:
+            input_data = input(text)
+            if input_data.strip() != "":
+                if is_numeric:
+                    if input_data.isnumeric():
+                        return int(input_data)
+                    else:
+                        print('Geçersiz girdi')
+                else:
+                    return input_data
+            else:
+                print('Geçersiz girdi')
+
+
 
     def register_new_pass(self):
         """
@@ -15,6 +50,17 @@ class Keepasx():
         eğer parola boş ise kendisi random bir parola oluşturur
         oluşturulacak parola uzunluğunu da kullanıcıdan isteyeceğiz
         """
+        username = self.input_control_error("Lütfen Kullanıcı adı giriniz :")
+        password = input("Lütfen parolanızı giriniz:")
+        if password.strip() == "":
+            password_length = self.input_control_error('Lütfen parola uzunluğu giriniz',is_numeric=True)
+            password = self.generate_pass(password_length)
+        aciklama = self.input_control_error("Lütfen açıklama giriniz :")
+
+
+
+        self.mypasslist.append({"username":username,"password":password,"description":aciklama})
+        self.save()
 
     def edit(self):
         """
@@ -65,5 +111,5 @@ class Keepasx():
         return ''.join([string_data[random.randint(0, len(string_data) - 1)] for i in range(0, length)])
 
 
-kep = Keepasx()
+kep = Keepasx("passfile.txt")
 print(kep.generate_pass(10))
