@@ -14,7 +14,7 @@ class Keepasx():
             1 - Yeni parola oluştur
             2 - Parolaları listele
             3 - Parola ara
-            """,is_numeric=True)
+            """, is_numeric=True)
             if menu == 1:
                 self.register_new_pass()
             elif menu == 2:
@@ -25,11 +25,8 @@ class Keepasx():
             else:
                 print('Hatalı Girdi')
 
-
-
-    def input_control_error(self,text,is_numeric=False):
-        input_error = True
-        while input_error:
+    def input_control_error(self, text, is_numeric=False):
+        while True:
             input_data = input(text)
             if input_data.strip() != "":
                 if is_numeric:
@@ -42,8 +39,6 @@ class Keepasx():
             else:
                 print('Geçersiz girdi')
 
-
-
     def register_new_pass(self):
         """
         Kullanıcıdan kullanıcı adı , açıklama ve parola ister
@@ -53,19 +48,20 @@ class Keepasx():
         username = self.input_control_error("Lütfen Kullanıcı adı giriniz :")
         password = input("Lütfen parolanızı giriniz:")
         if password.strip() == "":
-            password_length = self.input_control_error('Lütfen parola uzunluğu giriniz',is_numeric=True)
+            password_length = self.input_control_error('Lütfen parola uzunluğu giriniz', is_numeric=True)
             password = self.generate_pass(password_length)
         aciklama = self.input_control_error("Lütfen açıklama giriniz :")
 
-
-
-        self.mypasslist.append({"username":username,"password":password,"description":aciklama})
+        self.mypasslist.append({"username": username, "password": password, "description": aciklama})
         self.save()
 
-    def edit(self):
+    def edit(self,text,is_numeric=False):
         """
          verilen index'te olan veriyi değiştirir
         """
+        print('Edit çağrıldı')
+
+   
 
     def load(self):
         """
@@ -88,7 +84,7 @@ class Keepasx():
         for passlist in self.mypasslist:
             print(list(passlist.values()))
 
-    def search(self,keyw):
+    def search(self, keyw):
         """
         vericeğimiz parametreye göre parolalar arasında arama yapacak
         """
@@ -102,8 +98,9 @@ class Keepasx():
         """
         data = ""
         for i in self.mypasslist:
-            data += "{username}@ayrac@{passw}@ayrac@{desc}\n".format(username=i.get('username'),passw=i.get('password'),desc=i.get('description'))
-        with open(self.file_name,"w") as file:
+            data += "{username}@ayrac@{passw}@ayrac@{desc}\n".format(username=i.get('username'),
+                                                                     passw=i.get('password'), desc=i.get('description'))
+        with open(self.file_name, "w") as file:
             file.write(data)
 
     def generate_pass(self, length):
