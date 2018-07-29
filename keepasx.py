@@ -1,5 +1,6 @@
 import string as sg
 import random
+import json
 
 
 class Keepasx():
@@ -61,13 +62,14 @@ class Keepasx():
         """
         print('Edit çağrıldı')
 
-   
+
 
     def load(self):
         """
         verdiğimiz dosya isminine bakarak okuma yapacak
         """
         with open(self.file_name) as file:
+            print(file.read())
             file_data = file.read().strip().split("\n")
             for veriler in file_data:
                 veri_yigini = veriler.split("@ayrac@")
@@ -75,7 +77,9 @@ class Keepasx():
                     {"username": veri_yigini[0],
                      "password": veri_yigini[1],
                      "description": veri_yigini[2]})
-
+        # with open(self.file_name) as file:
+        #     file_data = json.load(file)
+        #     print(file_data)
     def list(self):
         """
         parolalarımızı listeleyecek
@@ -96,12 +100,16 @@ class Keepasx():
         """
         dosyaya kayit yapacak
         """
-        data = ""
-        for i in self.mypasslist:
-            data += "{username}@ayrac@{passw}@ayrac@{desc}\n".format(username=i.get('username'),
-                                                                     passw=i.get('password'), desc=i.get('description'))
+        # data = ""
+        # for i in self.mypasslist:
+        #     data += "{username}@ayrac@{passw}@ayrac@{desc}\n".format(username=i.get('username'),
+        #                                                              passw=i.get('password'), desc=i.get('description'))
+        # with open(self.file_name, "w") as file:
+        #     file.write(data)
+
+
         with open(self.file_name, "w") as file:
-            file.write(data)
+            json.dump(self.mypasslist, file)
 
     def generate_pass(self, length):
         string_data = sg.printable
@@ -110,3 +118,4 @@ class Keepasx():
 
 kep = Keepasx("passfile.txt")
 print(kep.generate_pass(10))
+print(kep.load())
