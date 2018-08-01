@@ -1,8 +1,5 @@
 import json
-
 import requests
-
-
 class Movie():
     title = None
     id = None
