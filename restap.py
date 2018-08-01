@@ -14,7 +14,7 @@ class MyApi():
 
     def request_get(self, endpoint):
         yeni_url = urljoin(self.main_url, endpoint)
-        return requests.get(yeni_url).json()
+        return requests.get(yeni_url,headers={"APIKEY":"BLABLA"}).json()
 
     def next_posts(self):
         next_range = self.last_end - self.last_start
