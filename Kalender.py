@@ -9,7 +9,7 @@ Pzt Sal Çar Per Cum Cmt Pzr
 """
 month_days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30,31]
 
-month = 8
+month = 3
 
 inital_array = []
 for day in range(0,month_days[month]):
