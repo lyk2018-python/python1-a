@@ -26,25 +26,20 @@ kisiler = ["Betül Tezel",
            "Osman",
            "Hayri",
            "Burak",
-           "Ertan",
-           ]
-stdscr = curses.initscr()
+           "Ertan"]
 
 
-for i in range(0,10):
-    cikan = kisiler[randint(0,len(kisiler)-1)]
-    stdscr.clear()
-    stdscr.addstr(0,0,cikan)
-    stdscr.refresh()
-    curses.beep()
+for z in range(0,4):
+    grup = []
 
-    if i < 9:
-        time.sleep(0.2)
-    else:
-        time.sleep(2)
+    print("GRUP",z,"#"*100)
+    for i in range(0,6):
+        cikan = kisiler[randint(0,len(kisiler)-1)]
+        grup.append(cikan)
+        kisiler.remove(cikan)
 
-stdscr.refresh()
-stdscr.addstr(0,0,"Talihlimiz : {}".format(cikan))
-stdscr.refresh()
-time.sleep(4)
-curses.endwin()
+        if i < 9:
+            time.sleep(0.2)
+        else:
+            time.sleep(0.1)
+    print(grup)
